@@ -1,6 +1,7 @@
 /**
  * Created by mccm on 28/04/15.
  */
+//TODO - Clean up initialization of fixture.js
 if (Posts.find().count() === 0) {
     Posts.insert({
         title: 'Introducing Telescope',
