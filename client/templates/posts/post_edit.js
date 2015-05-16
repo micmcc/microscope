@@ -10,14 +10,18 @@ Template.postEdit.events({
             url: $(e.target).find('[name=url]').val(),
             title: $(e.target).find('[name=title]').val()
         }
-        Posts.update(currentPostId, {$set: postProperties}, function(error){
-            if (error){
-                //display error to user
-                alert(error.reason);
-            }else {
-                Router.go('postPage', {_id: currentPostId});
-            }
+
+        Meteor.call('postUpdate', currentPostId, postProperties, function(error, result){
+           if (error){
+               return alert(error.reason);
+           }
+           if (result.postExists) {
+               alert('This link has already been posted.')
+           }
+
         });
+
+        Router.go('postPage', {_id: currentPostId});
     },
 
     'click .delete': function(e){
