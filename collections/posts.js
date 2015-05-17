@@ -89,7 +89,7 @@ Meteor.methods({
 
         Posts.update(postId, {$set: postProperties}, function(error){
             if (error){
-                return error;
+                Errors.throw(error.reason);
             }else {
                 return postId;
             }

@@ -22,10 +22,10 @@ Template.postEdit.events({
 
         Meteor.call('postUpdate', currentPostId, postProperties, function(error, result){
            if (error){
-               return throwError(error.reason);
+               Errors.throw(error.reason);
            }
            if (result.postExists) {
-               throwError('This link has already been posted.')
+               Errors.throw('This link has already been posted.')
            }
 
         });

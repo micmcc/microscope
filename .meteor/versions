@@ -43,10 +43,12 @@ meteor@1.1.6
 meteor-platform@1.2.2
 meteortoys:toykit@0.5.0
 meteortypescript:typescript-libs@1.1.0
+micmcc:errors@1.0.0
 minifiers@1.1.5
 minimongo@1.0.8
 mobile-status-bar@1.0.3
 mongo@1.1.0
+mongo-livedata@1.0.8
 msavin:mongol@1.0.70
 npm-bcrypt@0.7.8_2
 observe-sequence@1.0.6
