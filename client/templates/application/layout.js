@@ -11,5 +11,5 @@ Template.layout.helpers({
             else {
                 return 'Microscope';
             }
-        }
+        } 
 });

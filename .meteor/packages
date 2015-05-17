@@ -12,6 +12,4 @@ sacha:spin
 ian:accounts-ui-bootstrap-3
 accounts-password
 meteortypescript:typescript-libs
-mike:mocha
-velocity:core
-velocity:html-reporter
+msavin:mongol

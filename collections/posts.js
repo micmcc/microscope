@@ -21,6 +21,17 @@ Posts.deny({
     }
 });
 
+
+
+validatePost = function(post){
+    var errors = {};
+    if (!post.title)
+        errors.title="Please fill in a title for this post.";
+    if (!post.url)
+        errors.url="Please in the URL for this post."
+    return errors;
+}
+
 Meteor.methods({
    postInsert: function(postAttributes){
        check(Meteor.userId(), String);
@@ -28,6 +39,11 @@ Meteor.methods({
            title: String,
            url: String
        });
+
+       var errors = validatePost(postAttributes);
+       if (errors.title || errors.url)
+           throw new Meteor.Error('invalid-post', "You must set a Title and Url for your post");
+
        var postWithSameLink = Posts.findOne({url:postAttributes.url});
        if (postWithSameLink){
            return{
@@ -52,11 +68,11 @@ Meteor.methods({
             title: String,
             url: String
         });
+        var errors = validatePost(postProperties);
+        if (errors.title || errors.url)
+            throw new Meteor.Error('invalid-post', "You must set a Title and Url for your post");
 
-        /*****
-         * TODO - try to remove allow deny logic since we check id here.
-         * Note, still need to verify that the post belongs to the user
-         *****/
+
         var postWithSameLink = Posts.findOne(
             { $and: [
                         {_id: {$ne: postId}},

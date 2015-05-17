@@ -1,5 +1,10 @@
 Template.postEdit.helpers({
-    //add you helpers here
+    errorMessage: function(field) {
+      return Session.get('postEditErrors')[field];
+    },
+    errorClass: function (field) {
+        return !!Session.get('postEditErrors')[field] ? 'has-error' : '';
+    }
 });
 
 Template.postEdit.events({
@@ -11,12 +16,16 @@ Template.postEdit.events({
             title: $(e.target).find('[name=title]').val()
         }
 
+        var errors = validatePost(postProperties);
+        if (errors.title || errors.url)
+            return Session.set('postEditErrors', errors);
+
         Meteor.call('postUpdate', currentPostId, postProperties, function(error, result){
            if (error){
-               return alert(error.reason);
+               return throwError(error.reason);
            }
            if (result.postExists) {
-               alert('This link has already been posted.')
+               throwError('This link has already been posted.')
            }
 
         });
@@ -36,7 +45,7 @@ Template.postEdit.events({
 });
 
 Template.postEdit.onCreated(function () {
-    //add your statement here
+    Session.set('postEditErrors', {});
 });
 
 Template.postEdit.onRendered(function () {
